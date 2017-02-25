@@ -1,30 +1,31 @@
 package com.company;
 import java.util.Scanner;
+import java.io.*;
 
-public class Main {
+public class Main{
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException{
+        File file = new File(arg[1]);
+        PrintStream out = new PrintStream(new FileOutputStream(arg[2]));
+        System.setOut(out);
+        Scanner sc=new Scanner(file);
         int k,m,n,si;
-        n = 0;
-        int[] a;
-        int[] b; // number of types of sweets on each day I
+        int[] a,b,count;
+        double lBal, rBal, temp;
         double[] fi;
-        double temp = 0;
-        double lBal, rBal;
-        int[] count;
 
-        Scanner sc=new Scanner(System.in);
+        temp = 0;
+        n = 0;
 
 
         // FIRST LINE
 
-        System.out.println("Number of types of Sweets m");
+        //System.out.println("Number of types of Sweets m");
         m=sc.nextInt();
         a= new int [m];
         fi= new double [m];
 
-        System.out.println("Number of sweets eaten k");
+        //System.out.println("Number of sweets eaten k");
         k=sc.nextInt();
         b= new int [k];
         count= new int[m];
@@ -32,7 +33,7 @@ public class Main {
 
         // SECOND LINE
 
-        System.out.println("Enter the A values");
+        //System.out.println("Enter the A values");
         for(int i=0;i<m;i++) {
             a[i]=sc.nextInt();
         }
@@ -40,7 +41,7 @@ public class Main {
         //calculate fi based on ai
         for(int i=0; i<m; i++)
         {
-            for(int j=1;j<m; j++)
+            for(int j=0;j<m; j++)
             {
                 temp+=a[j];
             }
@@ -51,8 +52,7 @@ public class Main {
 
         // THIRD LINE
 
-
-        System.out.println("Enter the B values");
+        //System.out.println("Enter the B values");
         for(int i = 0; i < k; i++)
             b[i] = sc.nextInt();
 
@@ -65,26 +65,22 @@ public class Main {
             n += count[i];
 
         // balance checker
-        for(int i = 0; i < n; i++) {
+        int p = 0;
+        for(int i = 0; i < m; i++) {
             lBal = n * fi[i] - 1;
             rBal = n * fi[i] + 1;
 
-            System.out.println("f["+i+"] = " + fi[i]);
-            System.out.println("left bal = " + lBal);
-            System.out.println("s["+i+"] = " + count[i]);
-            System.out.println("right bal = " + rBal);
-
             if(rBal > count[i] && count[i] > lBal) {
-                System.out.println("Balance achieved\n");
+                p++;
             }
+
         }
 
-        for(int p =0; p<m;p++)
-        {
-            for(int j=0;j<m;j++)
-            {
-
-            }
-        }
+        if( Math.abs(n-p) >= 1)
+            System.out.println("forever");
+        else if( Math.abs(n-p) < 1 && Math.abs(n-p) > -1)
+            System.out.println("1");
+        else
+            System.out.println("0");
     }
 }
